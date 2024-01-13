@@ -9,8 +9,7 @@ public class BaconCounter {
     public static void main(String[] args) {
         // Read Input
         String foodItem;
-        double weightInPounds, heightInInches, maleBMR, femaleBMR,
-                maleBaconCount, femaleBaconCount;
+        double weightInPounds, heightInInches, foodItemCount, BMR = 0;
         int ageInYears, foodCalories;
         System.out.println("Hey, what food will you be eating?");
         Scanner keyboard = new Scanner(System.in);
@@ -24,18 +23,28 @@ public class BaconCounter {
         heightInInches = keyboard.nextDouble();
         System.out.println("What is your age in years?");
         ageInYears = keyboard.nextInt();
+        System.out.println("Are you a male or a female?");
+        String sex = keyboard.next();
 
         // Process
-        femaleBMR = 655 + (4.3 * weightInPounds) + (4.7 * heightInInches) - (4.7 * ageInYears);
-        maleBMR = 66 + (6.3 * weightInPounds) + (12.9 * heightInInches) - (6.8 * ageInYears);
-        femaleBaconCount = femaleBMR / foodCalories;
-        maleBaconCount = maleBMR / foodCalories;
+        switch(sex.toLowerCase()) {
+            case "male" -> {
+                BMR = 66 + (6.3 * weightInPounds) + (12.9 * heightInInches) - (6.8 * ageInYears);
+            }
+            case "female" -> {
+                BMR = 655 + (4.3 * weightInPounds) + (4.7 * heightInInches) - (4.7 * ageInYears);
+            }
+            default -> {
+                System.out.println("I don't have any way to calculate for that sex.");
+                System.exit(0);
+            }
+        }
+        foodItemCount = BMR / foodCalories;
+        System.out.println("The number of " + foodItem + " a " + sex + " would need to survive a day is: " + foodItemCount);
         // Calculate BMR
         // How many calories are in a slice of bacon? - 44
         // BMR / baconCalories of bacon
 
         // Output
-        System.out.println("The number of  a man would need to survive a day is: " + maleBaconCount);
-        System.out.println("The number of  a female would need to survive a day is: " + femaleBaconCount);
     }
 }
