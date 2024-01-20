@@ -15,14 +15,43 @@ public class Pokemon {
         System.out.println("The level of the pokemon is: " + level);
     }
 
-    public static void main(String[] args) {
-        Pokemon pokemon1 = new Pokemon();
-        pokemon1.name = "Tododile";
-        pokemon1.attack = 20;
-        pokemon1.hitPoints = 30;
-        pokemon1.level = 3;
-        pokemon1.type = "Water";
+    public int calculateDamageDealt() {
+        int randomDamage = (int) (Math.random() * 6) + 1;
+        int totalDamage = randomDamage + attack;
+        return totalDamage;
+    }
 
-        pokemon1.printPokeData();
+    public void usePotion(String type) {
+        System.out.println("You used a " + type + " potion");
+        switch (type) {
+            case "Hi" -> {
+                hitPoints = hitPoints + 30;
+            }
+            case "Super" -> {
+                hitPoints = hitPoints + 20;
+            }
+            default -> {
+                hitPoints = hitPoints + 10;
+            }
+        }
+        System.out.println(name + " now has " + hitPoints + " hit points");
+    }
+
+    public void retreat() {
+        System.out.println(name + " ran away");
+        System.exit(0);
+    }
+
+    public void attacks(Pokemon opposingPokemon) {
+        int damage;
+        if (Math.random() > .9) {
+            damage = calculateDamageDealt() * 2;
+            System.out.println(name + " scored a critical hit against " + opposingPokemon.name + " for " + damage + " " + type + " damage");
+        } else {
+            damage = calculateDamageDealt();
+            System.out.println(name + " attacks " + opposingPokemon.name + " for " + damage + " " + type + " damage");
+        }
+        opposingPokemon.hitPoints = opposingPokemon.hitPoints - damage;
+        System.out.println(opposingPokemon.name + " now has " + opposingPokemon.hitPoints + " health");
     }
 }
